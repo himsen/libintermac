@@ -1,0 +1,8 @@
+*.o
+*.a
+intermaclib
+testintermac
+test_aes
+im-performance/im_bench
+im-performance/im_bench_new
+.DS_Store

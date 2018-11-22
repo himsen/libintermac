@@ -9,7 +9,7 @@
  *
  * @author D. J. Bernstein
  * Minor modifications by
- * Torben Hansen <torben.hansen.2015@rhul.ac.uk>
+ * anonymous
  */
 
 #include "im_chacha.h"

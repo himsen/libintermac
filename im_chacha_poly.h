@@ -1,7 +1,7 @@
 /*
  * @file im_chacha_poly.h
  *
- * @author Torben Hansen <Torben.Hansen.2015@rhul.ac.uk>
+ * @author anonymous
  */
 
 #ifndef IM_CHACHA_POLY_H

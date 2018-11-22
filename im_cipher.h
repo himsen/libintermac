@@ -1,7 +1,7 @@
 /*
  * @file im_cipher.h
  *
- * @author Torben Hansen <Torben.Hansen.2015@rhul.ac.uk>
+ * @author anonymous
  */
 
 #ifndef IM_CIPHER_H

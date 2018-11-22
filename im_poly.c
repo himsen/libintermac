@@ -8,7 +8,7 @@
  *
  * @author Andrew Moon
  * Minor modifications by
- * Torben Hansen <Torben.Hansen.2015@rhul.ac.uk>
+ * anonymous
  */
 
 #include <sys/types.h>

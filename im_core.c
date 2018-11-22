@@ -6,7 +6,7 @@
  * im_decrypt()
  * im_cleanup()
  * 
- * @author Torben Hansen <Torben.Hansen.2015@rhul.ac.uk>
+ * @author anonymous
  */
 
 #include <string.h>

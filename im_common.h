@@ -1,7 +1,7 @@
 /*
  * @file im_common.h
  *
- * @author Torben Hansen <Torben.Hansen.2015@rhul.ac.uk>
+ * @author anonymous
  */
 
 #ifndef IM_COMMON_H

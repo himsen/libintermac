@@ -19,7 +19,7 @@
  *
  * @author Damien Miller <djm@mindrot.org>
  * Minor modifications by
- * Torben Hansen <Torben.Hansen.2015@rhul.ac.uk>
+ * anonymous
  */
 
 #include <stddef.h>

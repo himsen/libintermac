@@ -1,7 +1,7 @@
 /*
  * @file im_cipher.c
  *
- * @author Torben Hansen <Torben.Hansen.2015@rhul.ac.uk>
+ * @author anonymous
  */
 
 #include <stdio.h>

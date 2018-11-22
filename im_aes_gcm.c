@@ -2,7 +2,7 @@
  * @file im_aes_gcm.c
  * @brief Simple AES-GCM 128 bit cipher, which sets a new nonce for every call
  *
- * @author Torben Hansen <Torben.Hansen.2015@rhul.ac.uk>
+ * @author anonymous
  */
 
 #include "im_common.h"

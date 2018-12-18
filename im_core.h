@@ -62,14 +62,66 @@
  */
 struct intermac_ctx;
 
-/* Public InterMAC API */
+/*
+ * Public libIntermac API
+ */
 
+/*
+ * @brief Allocates and initialises intermac context and 
+ * initialises internal InterMAC cipher.
+ *
+ * Caller must call im_cleaup to free _im_ctx_ and
+ * im_cleanup() must be called if this function fails.
+ *
+ * @param im_ctx The addres to which the InterMAC context is written
+ * @param key The symmetric key the internal cipher is initialised with
+ * @param chunk_length The InterMAC chunk_length parameter
+ * @param cipher The internal cipher InterMAC should use
+ * @param crypt_type Initialises the internal InterMAC cipher
+ * in either encrypt mode (IM_CIPHER_ENCRYPT)
+ * or decrypt mode (IM_CIPHER_DECRYPT)
+ * @return IM_OK on success, IM_ERR on failure
+ */
 int im_initialise(struct intermac_ctx**, const u_char*, u_int, const char*,
 	int);
+
+/*
+ * @brief InterMAC encrypts a message
+ *
+ * Caller must free _dst_.
+ *  
+ *
+ * @param im_ctx The InterMAC context
+ * @param dst The address to which the encrypted message is written
+ * @param dst_length The address to which the length of the 
+ * encrypted message is written
+ * @param src The message that is InterMAC encrypted
+ * @param src_length The length of the message that is InterMAC encrypted
+ * @return IM_OK on success, IM_ERR on failure
+ */
 int im_encrypt(struct intermac_ctx*, u_char**, u_int*, const u_char*, u_int);
+
+/*
+ * @brief Intermac decrypt
+ */
 int im_decrypt(struct intermac_ctx*, const u_char*, u_int , u_char*,
 	u_int, u_int*, u_int*, u_int*);
+
+/* 
+ * @breif Clean ups InterMAC state internals
+ * 
+ * Cycles throughs the InterMAC context components and makes
+ * sure to call appropriate clean up functions. In addition,
+ * zeroises any data tied to the InterMAC state.
+ *
+ * @param im_ctx The InterMAC contect to clean up
+ * @return IM_OK on success, IM_ERR on failure
+ */
 int im_cleanup(struct intermac_ctx*);
+
+/*
+ * @brief Simple dequeue implementation
+ */
 int im_dequeue_msg_size(struct intermac_ctx*, u_int*);
 
 void im_dump_data(const void*, size_t, FILE*); /* TODO: remove */

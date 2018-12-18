@@ -20,6 +20,7 @@ int im_test1(u_int key_length, u_int chunk_length, char *cipher) {
 	u_int total_src_processed = 0;
 	u_int total_cts_decrypted = 0;
 	u_int length_decrypted_packet = 0;
+	u_int total_length_cts_decrypted = 0;
 
 	int r = 0;
 

@@ -124,6 +124,4 @@ int im_cleanup(struct intermac_ctx*);
  */
 int im_dequeue_msg_size(struct intermac_ctx*, u_int*);
 
-void im_dump_data(const void*, size_t, FILE*); /* TODO: remove */
-
 #endif /* IM_CORE_H */

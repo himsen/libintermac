@@ -7,6 +7,34 @@
 
 #define FREESAFE(x) if (x != NULL) free(x);
 
+static void im_dump_data(const void*, size_t, FILE*); /* TODO: remove */
+
+static void im_dump_data(const void *s, size_t len, FILE *f) {
+
+	size_t i, j;
+	const u_char *p = (const u_char *)s;
+
+	for (i = 0; i < len; i += 16) {
+		fprintf(f, "%.4zu: ", i);
+		for (j = i; j < i + 16; j++) {
+			if (j < len)
+				fprintf(f, "%02x ", p[j]);
+			else
+				fprintf(f, "   ");
+		}
+		fprintf(f, " ");
+		for (j = i; j < i + 16; j++) {
+			if (j < len) {
+				if  (isascii(p[j]) && isprint(p[j]))
+					fprintf(f, "%c", p[j]);
+				else
+					fprintf(f, ".");
+			}
+		}
+		fprintf(f, "\n");
+	}
+}
+
 int im_test1(u_int key_length, u_int chunk_length, char *cipher) {
 
 	struct intermac_ctx *im_encrypt_ctx = NULL;

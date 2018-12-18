@@ -54,7 +54,12 @@
 		((u_char *)(p))[7] = __v & 0xff; \
 	} while (0)
 
-/* libIntermac state context declaration */
+/*
+ * libIntermac state context declaration
+ * We do this to avoid user manipulation of the state.
+ * The downside is that users can't statically allocate
+ * the state.
+ */
 struct intermac_ctx;
 
 /* Public InterMAC API */

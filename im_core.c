@@ -607,7 +607,7 @@ int im_dequeue_msg_size(struct intermac_ctx *im_ctx, u_int *msg_size) {
  */
 int im_decrypt(struct intermac_ctx *im_ctx, const u_char *src, u_int src_length,
 	u_char *dst, u_int dst_length, u_int *total_src_processed,
-	u_int *total_cts_decrypted) {
+	u_int *total_cts_decrypted, u_int *total_length_cts_decrypted) {
 
 	u_int cts_decrypted = 0;
 	u_int this_src_processed = 0;
@@ -617,6 +617,7 @@ int im_decrypt(struct intermac_ctx *im_ctx, const u_char *src, u_int src_length,
 
 	*total_cts_decrypted = 0;
 	*total_src_processed = 0;
+	*total_length_cts_decrypted = 0;
 
 	while(1) {
 
@@ -651,6 +652,7 @@ int im_decrypt(struct intermac_ctx *im_ctx, const u_char *src, u_int src_length,
 out:
 	*total_cts_decrypted = cts_decrypted;
 	*total_src_processed = this_src_processed;
+	*total_length_cts_decrypted = this_total_pt_size;
 
 	return IM_OK;
 }

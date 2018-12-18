@@ -63,7 +63,8 @@ int im_test1(u_int key_length, u_int chunk_length, char *cipher) {
 	}
 
 	if (im_decrypt(im_decrypt_ctx, (const u_char *) dst, dst_length,
-		decrypted_packet, 1024 * 1024, &total_src_processed, &total_cts_decrypted) != 0) {
+		decrypted_packet, 1024 * 1024, &total_src_processed,
+		&total_cts_decrypted, &total_length_cts_decrypted) != 0) {
 		fprintf(stderr, "Decryption: im_decrypt() failed\n");
 		goto fail;
 	}
@@ -109,6 +110,7 @@ int im_test2(u_int key_length, u_int chunk_length, char *cipher) {
 	u_int total_src_processed = 0;
 	u_int total_cts_decrypted = 0;
 	u_int length_decrypted_packet = 0;
+	u_int total_length_cts_decrypted = 0;
 
 	int r = 0;
 
@@ -157,7 +159,8 @@ int im_test2(u_int key_length, u_int chunk_length, char *cipher) {
 	}
 
 	if (im_decrypt(im_decrypt_ctx, (const u_char *) dst, dst_length,
-		decrypted_packet, 1024 * 1024, &total_src_processed, &total_cts_decrypted) != 0) {
+		decrypted_packet, 1024 * 1024, &total_src_processed,
+		&total_cts_decrypted, &total_length_cts_decrypted) != 0) {
 		fprintf(stderr, "Decryption: im_decrypt() failed\n");
 		goto fail;
 	}
@@ -204,6 +207,7 @@ int im_test3(u_int key_length, u_int chunk_length, char *cipher) {
 	u_int total_src_processed = 0;
 	u_int total_cts_decrypted = 0;
 	u_int length_decrypted_packet = 0;
+	u_int total_length_cts_decrypted = 0;
 
 	int r = 0;
 
@@ -252,13 +256,15 @@ int im_test3(u_int key_length, u_int chunk_length, char *cipher) {
 	}
 
 	if (im_decrypt(im_decrypt_ctx, (const u_char *) dst, 100,
-		decrypted_packet, 1024 * 1024, &total_src_processed, &total_cts_decrypted) != 0) {
+		decrypted_packet, 1024 * 1024, &total_src_processed,
+		&total_cts_decrypted, &total_length_cts_decrypted) != 0) {
 		fprintf(stderr, "Decryption: im_decrypt() failed\n");
 		goto fail;		
 	}
 
 	if (im_decrypt(im_decrypt_ctx, (const u_char *) dst, dst_length,
-		decrypted_packet, 1024 * 1024, &total_src_processed, &total_cts_decrypted) != 0) {
+		decrypted_packet, 1024 * 1024, &total_src_processed,
+		&total_cts_decrypted, &total_length_cts_decrypted) != 0) {
 		fprintf(stderr, "Decryption: im_decrypt() failed\n");
 		goto fail;		
 	}
@@ -311,6 +317,7 @@ int im_test4(u_int key_length, u_int chunk_length, char *cipher) {
 	u_int length_decrypted_packet = 0;
 	u_int _length_decrypted_packet = 0;
 	u_char *ct_combined = NULL;
+	u_int total_length_cts_decrypted = 0;
 
 	int r = 0;
 
@@ -382,7 +389,8 @@ int im_test4(u_int key_length, u_int chunk_length, char *cipher) {
 	}
 
 	if (im_decrypt(im_decrypt_ctx, (const u_char *) ct_combined, 150,
-		decrypted_packet, 1024 * 1024, &total_src_processed, &total_cts_decrypted) != 0) {
+		decrypted_packet, 1024 * 1024, &total_src_processed,
+		&total_cts_decrypted, &total_length_cts_decrypted) != 0) {
 		fprintf(stderr, "Decryption 1: im_decrypt() failed\n");
 		goto fail;		
 	}
@@ -393,7 +401,8 @@ int im_test4(u_int key_length, u_int chunk_length, char *cipher) {
 	}
 
 	if (im_decrypt(im_decrypt_ctx, (const u_char *) ct_combined + total_src_processed, dst_length + _dst_length,
-		decrypted_packet, 1024 * 1024, &total_src_processed, &total_cts_decrypted) != 0) {
+		decrypted_packet, 1024 * 1024, &total_src_processed,
+		&total_cts_decrypted, &total_length_cts_decrypted) != 0) {
 		fprintf(stderr, "Decryption 2: im_decrypt() failed\n");
 		goto fail;		
 	}

@@ -11,11 +11,11 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <inttypes.h>
 
 #include "im_common.h"
 #include "im_core.h"
 #include "im_cipher.h"
-#include <inttypes.h>
 
 /* Only works for x,y > 0 */
 #define im_div_roundup(x,y) ( 1 + ( ((x) - 1) / (y) ) )
@@ -34,6 +34,91 @@ static int im_padding_length_decrypt(u_char *decrypted_chunk,
 static int im_decrypt_internal(struct intermac_ctx *im_ctx, const u_char *src,
 	u_int src_length, u_int *this_src_processed,
 	u_int *size_decrypted_ciphertext);
+
+/* Opaque definition of libIntermac state */
+struct intermac_ctx {
+	/* Internal nonce-based cipher context */
+	struct im_cipher_ctx *im_c_ctx;
+
+	/* Includes chunk delimiter */
+	u_int chunk_length;
+
+	/* Incremented by one for each new chunk; reset for each new message */
+	uint32_t chunk_counter;
+
+	/* Incremented by one for each new message */
+	uint64_t message_counter;
+
+	/*
+	 * Length of resulting ciphertext after encrypting 'chunk_length' bytes,
+	 * for chosen encryption function (counted in bytes)
+	 */
+	u_int ciphertext_length;
+	
+	/* Length of MAC tag (counted in bytes) */
+	u_int mactag_length;
+
+	/* Number of chunks of current message being encrypted */
+	u_int number_of_chunks; 
+
+	/* Decryption specific */
+	u_char *decryption_buffer; 
+	u_int decrypt_buffer_offset;
+	u_int decrypt_buffer_allocated;
+
+	 /*
+	  * Counts how many bytes that have been processed from input for currently
+	  * being decrypted ciphertext
+	  */
+	u_int src_processed;
+
+	/*
+	 * Total Number of chunks encrypted
+	 */
+	uint64_t total_encrypted_chunks;
+
+	/*
+	 * Encryption limit (counted in bytes).
+	 * Zero means that no such limits exist.
+	 * NOT implemented (TODO)
+	 */
+	uint64_t encryption_limit;
+
+	/*
+	 * Encryption invocation limit
+	 * Zero means that no such limits exist.
+	 */
+	uint64_t encryption_inv_limit;
+
+	/*
+	 * Authentication limit (counted in bytes).
+	 * Zero means that no such limits exist.
+	 * NOT implemented (TODO)
+	 */
+	uint64_t authentication_limit;
+
+	/*
+	 * Authentication invocation limit.
+	 * Zero means that no such limits exist.
+	 * NOT implemented (TODO)
+	 */
+	uint64_t authentication_inv_limit;
+
+	/*
+	 * Fail flag.
+	 * If fail = 1 im_encrypt() and im_decrypt() will fail if 
+	 * invoked.
+	 */
+	int fail;
+
+	/*
+	 * Simple FIFO queue
+	 */
+	u_int queue_msg_size[IM_MAX_MSG_SIZES_BUFFERED];
+	size_t queue_front;
+	size_t queue_rear;
+	size_t queue_size;
+};
 
 /*
  * @brief Computes the number of padding bytes needed to hit a multiple of

@@ -23,5 +23,5 @@ libintermac.a: $(OBJS)
 clean: 
 	rm *.o
 	rm *.a
-	rmn $(UNITTEST_FOLDER)/test.o
+	rm $(UNITTEST_FOLDER)/test.o
 	rm testintermac
